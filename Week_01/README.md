@@ -82,3 +82,82 @@ O(n!): Factorial 阶乘
 递归的深度
 
 # 数组、链表、跳表的基本实现和特性
+
+复杂度分析：https://www.bigocheatsheet.com/
+
+![image-20201205114256455](https://gitee.com/dong618/blog/raw/master/img/202011/20201205114258.png)
+
+
+
+分析 Queue 和 PriorityQueue
+
+关系：
+
+```java
+public abstract class AbstractQueue<E>
+    extends AbstractCollection<E>
+    implements Queue<E>
+public class PriorityQueue<E> extends AbstractQueue<E>
+```
+
+复杂度分析
+
+PriorityQueue中 jdk1.8中的实现
+
+```
+public boolean add(E e) {
+        return offer(e);
+    }
+```
+
+add(E e)、offer(E e)  poll() remove() 基于以下代码得出时间复杂度： O(log(n))
+
+```java
+private void siftDown(int k, E x) {
+        if (comparator != null)
+            siftDownUsingComparator(k, x);
+        else
+            siftDownComparable(k, x);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void siftDownComparable(int k, E x) {
+        Comparable<? super E> key = (Comparable<? super E>)x;
+        int half = size >>> 1;        // loop while a non-leaf
+        while (k < half) {
+            int child = (k << 1) + 1; // assume left child is least
+            Object c = queue[child];
+            int right = child + 1;
+            if (right < size &&
+                ((Comparable<? super E>) c).compareTo((E) queue[right]) > 0)
+                c = queue[child = right];
+            if (key.compareTo((E) c) <= 0)
+                break;
+            queue[k] = c;
+            k = child;
+        }
+        queue[k] = key;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void siftDownUsingComparator(int k, E x) {
+        int half = size >>> 1;
+        while (k < half) {
+            int child = (k << 1) + 1;
+            Object c = queue[child];
+            int right = child + 1;
+            if (right < size &&
+                comparator.compare((E) c, (E) queue[right]) > 0)
+                c = queue[child = right];
+            if (comparator.compare(x, (E) c) <= 0)
+                break;
+            queue[k] = c;
+            k = child;
+        }
+        queue[k] = x;
+    }
+```
+
+peek() 时间复杂度O(1)
+
+参考文章：https://zhuanlan.zhihu.com/p/52513668
