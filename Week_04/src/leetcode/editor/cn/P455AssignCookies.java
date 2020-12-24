@@ -63,7 +63,7 @@ class Solution {
         if (g == null || s ==null) {
             return  0;
         }
-        //先进性排序
+        //先进行排序
         Arrays.sort(g);
         Arrays.sort(s);
         //依次进行比较排序
