@@ -6,7 +6,7 @@ import java.util.Map;
 //Java：LRU 缓存机制
 public class P146LruCache{
     public static void main(String[] args) {
-        Solution solution = new P146LruCache().new Solution();
+
         // TO TEST
     }
     //leetcode submit region begin(Prohibit modification and deletion)
