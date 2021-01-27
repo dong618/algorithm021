@@ -163,3 +163,18 @@ public static int myAtoi(String str){
 
    KMP算法(Knuth-Morris-Pratt)的思想就是,当子串与目标字符串不匹配时,其实你已经知道了前面已经匹配成功那一部分的字符(包括子串与目标字符串)。以阮一峰的文章为例,当空格与D不匹配时,你其实知道前面六个字符是"ABCDAB" .KMP算法的想法是,设法利用这个已知信息,不要把"搜索位置"移回已经比较过的位置,继续把它向后移,这样就提高了效率。
 
+# 不同路径II 状态转移方程
+
+```
+二维数组方式
+dp[0][0] = obstacleGrid[0][0] == 1 ? 0 : 1;
+dp[i][0] = obstacleGrid[i][0] == 1 ? 0 : dp[i - 1][0]; (i > 0 && j == 0)
+dp[0][j] = obstacleGrid[0][j] == 1 ? 0 : dp[j - 1];(i == 0 && j > 0)
+dp[i][j] = obstacleGrid[i][j] == 1 ? 0 : dp[i - 1][j] + dp[i][j - 1]; (i > 0 && j > 0)
+
+一维数组方式
+dp[0] = obstacleGrid[0][0] == 1 ? 0 : 1;
+dp[0] = obstacleGrid[i][0] == 1 ? 0 : dp[0];(j > 0)
+dp[j] = obstacleGrid[i][j] == 1 ? 0 : dp[j] + dp[j - 1];(j > 0)
+```
+
